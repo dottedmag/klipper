@@ -187,3 +187,14 @@ config INLINE_STEPPER_HACK
     bool
     depends on HAVE_GPIO
     default y
+
+config DEBUG_PRINT
+    bool "Enable debug print (on PB6/PB7)"
+    depends on MACH_STM32G0B1
+    default n
+config DEBUG_PRINT_BAUD
+    depends on DEBUG_PRINT
+    int "Baud rate for debug serial port" if LOW_LEVEL_OPTIONS
+    default 115200
+    help
+        Specify the baud rate of the debug serial port.

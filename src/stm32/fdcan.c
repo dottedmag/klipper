@@ -12,7 +12,7 @@
 #include "generic/canserial.h" // CANBUS_ID_ADMIN
 #include "internal.h" // enable_pclock
 #include "sched.h" // DECL_INIT
-
+#include "debug_print.h" // debug_print
 
 /****************************************************************
  * Pin configuration
@@ -181,6 +181,8 @@ canhw_set_filter(uint32_t id)
 void
 CAN_IRQHandler(void)
 {
+    debug_print("Q");
+
     uint32_t ir = SOC_CAN->IR;
 
     if (ir & FDCAN_IE_RF0NE) {
@@ -314,5 +316,7 @@ can_init(void)
     armcm_enable_irq(CAN_IRQHandler, CAN_IT0_IRQn, 1);
     SOC_CAN->ILE = FDCAN_ILE_EINT0;
     SOC_CAN->IE = FDCAN_IE_RF0NE | FDCAN_IE_TC;
+
+    debug_print("C");
 }
 DECL_INIT(can_init);
